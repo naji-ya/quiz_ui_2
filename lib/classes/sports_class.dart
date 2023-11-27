@@ -1,11 +1,11 @@
 class SportsClass {
   late String sportsQuestion;
-  late int sportsAnswerIndex;
+  late int sportsCorrectAnswerIndex;
   late List<String> options;
 
   SportsClass({
     required this.sportsQuestion,
-    required this.sportsAnswerIndex,
+    required this.sportsCorrectAnswerIndex,
     required this.options,
   });
 }

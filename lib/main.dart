@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         ),
         home: const QuizHome(),
         routes: {
-          'homepage': (context) => HomePage(),
+          'homepage': (context) => const HomePage(),
 
           // routes for the different quiz pages
           'sports': (context) => const SportsPage(),
