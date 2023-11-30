@@ -11,7 +11,7 @@ class SportsScore extends StatelessWidget {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text("Score"),
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(50.0),
@@ -45,32 +45,38 @@ class SportsScore extends StatelessWidget {
                       color: Colors.white, fontSize: 35),
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 50,
                 ),
                 Text(
-                  " You are successfully  ",
+                  "Your Score ",
                   style: GoogleFonts.abyssinicaSil(
-                      color: const Color.fromARGB(255, 167, 161, 161),
-                      fontSize: 20,
+                      color: Colors.white, fontSize: 23),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "$score/10",
+                  style: GoogleFonts.abyssinicaSil(
+                      letterSpacing: 3,
+                      color: Colors.white,
+                      fontSize: 30,
                       fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 100,
                 ),
-                Text(
-                  "completed the Quiz",
-                  style: GoogleFonts.abyssinicaSil(
-                      color: const Color.fromARGB(255, 167, 161, 161),
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Text(
-                  "Your Score: $score",
-                  style: GoogleFonts.abyssinicaSil(
-                      color: Colors.white, fontSize: 28),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'quiz_home');
+                  },
+                  child: const Text(
+                    "Back To Home ",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 23,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),

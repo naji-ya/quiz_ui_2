@@ -93,6 +93,16 @@ class SportsQbank {
     return questions[questionNumber].sportsCorrectAnswerIndex;
   }
 
+  void resetQuiz() {
+    questionNumber = 0;
+  }
+
+  void getPreviousQuestion() {
+    if (questionNumber > 0) {
+      questionNumber--;
+    }
+  }
+
   void getNextQuestion() {
     if (questionNumber < questions.length - 1) {
       questionNumber++;

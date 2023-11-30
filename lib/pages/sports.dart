@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quiz_2/classes/sports_class_questions.dart';
+import 'package:flutter_quiz_2/components/previous_button.dart';
 import 'package:flutter_quiz_2/components/sports_score.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -28,17 +29,30 @@ class _SportsPageState extends State<SportsPage> {
     }
   }
 
+  bool showPreviousButton = false;
+
+  void onPreviousButtonPressed() {
+    sportsqbank.getPreviousQuestion();
+    setState(() {
+      showPreviousButton = sportsqbank.questionNumber > 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text(
-          "Quiz On Sports",
-          style: GoogleFonts.akshar(
-            color: Colors.amber,
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
+        automaticallyImplyLeading: false,
+        title: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Text(
+            "Quiz On Sports",
+            style: GoogleFonts.akshar(
+              color: Colors.amber,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         backgroundColor: Colors.black,
@@ -49,20 +63,23 @@ class _SportsPageState extends State<SportsPage> {
             padding: const EdgeInsets.all(25),
             child: SizedBox(
               width: double.infinity,
-              height: 150,
+              height: 170,
               child: Center(
-                child: Text(
-                  sportsqbank.getQuestion(),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 23,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 40, bottom: 15),
+                  child: Text(
+                    sportsqbank.getQuestion(),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 23,
+                    ),
                   ),
                 ),
               ),
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 15,
           ),
           ListView.builder(
               shrinkWrap: true,
@@ -85,42 +102,56 @@ class _SportsPageState extends State<SportsPage> {
                       setAnswer();
                     });
                   },
-                  child: Container(
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: getColor(),
-                        border: Border.all(
-                          color: const Color.fromARGB(255, 241, 213, 130),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 3, right: 25, left: 25, bottom: 3),
+                    child: Container(
+                      height: 60,
+                      decoration: BoxDecoration(
+                          color: getColor(),
+                          border: Border.all(
+                            color: const Color.fromARGB(255, 241, 213, 130),
+                          ),
+                          borderRadius: BorderRadius.circular(10)),
+                      margin: const EdgeInsets.all(3.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          sportsqbank.getOption()[index],
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 18),
                         ),
-                        borderRadius: BorderRadius.circular(10)),
-                    margin: const EdgeInsets.all(3.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: Text(
-                        sportsqbank.getOption()[index],
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
                   ),
                 );
               }),
-          NextButton(
-            onTap: () {
-              setState(() {
-                if (sportsqbank.isLastQuestion() == true) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: ((context) => SportsScore(score: score)),
-                    ),
-                  );
-                } else {
-                  sportsqbank.getNextQuestion();
-                }
-              });
-              selectedOptionIndex = -1;
-            },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              if (showPreviousButton = sportsqbank.questionNumber > 0)
+                PreviousButton(
+                  onTap: onPreviousButtonPressed,
+                ),
+              NextButton(
+                onTap: () {
+                  setState(() {
+                    if (sportsqbank.isLastQuestion() == true) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => SportsScore(score: score)),
+                        ),
+                      );
+                      sportsqbank.resetQuiz();
+                    } else {
+                      sportsqbank.getNextQuestion();
+                    }
+                  });
+                  selectedOptionIndex = -1;
+                },
+              ),
+            ],
           ),
         ],
       ),

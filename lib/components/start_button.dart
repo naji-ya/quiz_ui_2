@@ -15,8 +15,9 @@ class _StartButtonState extends State<StartButton> {
         Navigator.pushNamed(context, 'homepage');
       },
       child: const Text(
-        "Let's Start",
-        style: TextStyle(fontSize: 17),
+        "Play Quiz",
+        style: TextStyle(
+            fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold),
       ),
     );
   }

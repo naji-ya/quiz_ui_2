@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quiz_2/pages/sports.dart';
 
-class NextButton extends StatelessWidget {
+class PreviousButton extends StatelessWidget {
   final VoidCallback onTap;
-  const NextButton({super.key, required this.onTap});
+  const PreviousButton({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +22,10 @@ class NextButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.amber,
               ),
-              child: Center(
+              child: const Center(
                   child: Text(
-                sportsqbank.isLastQuestion() ? 'Done' : 'Next',
-                style:
-                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                "Previous",
+                style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
               )),
             ),
           ),

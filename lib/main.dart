@@ -43,6 +43,9 @@ class MyApp extends StatelessWidget {
           'games': (context) => const GamesPage(),
           'computer': (context) => const ComputerPage(),
           'books': (context) => const BooksPage(),
+          //Route for back to home button
+
+          'quiz_home': (context) => const QuizHome(),
         });
   }
 }

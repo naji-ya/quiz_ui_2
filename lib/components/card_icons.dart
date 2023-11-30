@@ -27,7 +27,9 @@ class IconCards extends StatelessWidget {
         ),
         Text(
           iconChild,
-          style: GoogleFonts.akshar(fontSize: 25),
+          style: GoogleFonts.akshar(
+            fontSize: 30,
+          ),
         )
       ],
     );
