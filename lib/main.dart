@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quiz_2/components/home_page.dart';
-import 'package:flutter_quiz_2/pages/books.dart';
-import 'package:flutter_quiz_2/pages/computer.dart';
-import 'package:flutter_quiz_2/pages/games.dart';
-import 'package:flutter_quiz_2/pages/music.dart';
+import 'package:flutter_quiz_2/pages/BookQuiz/books.dart';
+
+import 'package:flutter_quiz_2/pages/ComputerQuiz/computer.dart';
+import 'package:flutter_quiz_2/pages/GamesQuiz/games.dart';
+import 'package:flutter_quiz_2/pages/MusicQuiz/music.dart';
 import 'package:flutter_quiz_2/pages/quiz_home.dart';
-import 'package:flutter_quiz_2/pages/science.dart';
-import 'package:flutter_quiz_2/pages/sports.dart';
+import 'package:flutter_quiz_2/pages/ScienceQuiz/science.dart';
+import 'package:flutter_quiz_2/pages/SportsQuiz/sports.dart';
 
 void main() {
   runApp(const MyApp());

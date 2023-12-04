@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quiz_2/pages/sports.dart';
+import 'package:flutter_quiz_2/pages/SportsQuiz/sports.dart';
 
 class NextButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -25,6 +25,7 @@ class NextButton extends StatelessWidget {
               ),
               child: Center(
                   child: Text(
+                // if the user  is at the last question then the nextbutton should be changed to done otherwise it is next
                 sportsqbank.isLastQuestion() ? 'Done' : 'Next',
                 style:
                     const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),

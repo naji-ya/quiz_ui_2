@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // fuction to navigate to the next page as the user click on each contaqiner
+  // fuctions to navigate to its corresponding quiz page as the user click on each container
   void onClicked(int index) {
     if (index == 0) {
       Navigator.pushNamed(context, 'sports');
@@ -35,6 +35,13 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            onPressed: (() {
+              Navigator.pushNamed(context, 'quiz_home');
+            }),
+            icon: const Icon(Icons.arrow_back),
+          ),
           title: Text(
             "QuizyApp",
 
@@ -62,6 +69,8 @@ class _HomePageState extends State<HomePage> {
                         onTap: () {
                           onClicked(0);
                         },
+
+                        // icon cards is a reusable widget which requires  an icon widget and iconchild
                         iconCard: const IconCards(
                           iconWidget: Icons.sports_volleyball,
                           iconChild: "Sports",
@@ -74,6 +83,8 @@ class _HomePageState extends State<HomePage> {
                         onTap: () {
                           onClicked(1);
                         },
+
+                        // icon cards is a reusable widget which requires  an icon widget and iconchild
                         iconCard: const IconCards(
                           iconWidget: Icons.science,
                           iconChild: "Science",
@@ -92,6 +103,8 @@ class _HomePageState extends State<HomePage> {
                         onTap: () {
                           onClicked(2);
                         },
+                        // icon cards is a reusable widget which requires  an icon widget and iconchild
+
                         iconCard: const IconCards(
                           iconWidget: Icons.music_note,
                           iconChild: "Music",
@@ -104,6 +117,9 @@ class _HomePageState extends State<HomePage> {
                         onTap: () {
                           onClicked(3);
                         },
+
+                        // icon cards is a reusable widget which requires  an icon widget and iconchild
+
                         iconCard: const IconCards(
                           iconWidget: Icons.sports_esports_rounded,
                           iconChild: "Games",
@@ -122,6 +138,9 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         onClicked(4);
                       },
+
+                      // icon cards is a reusable widget which requires  an icon widget and iconchild
+
                       iconCard: const IconCards(
                         iconWidget: Icons.computer_rounded,
                         iconChild: "Computer ",
@@ -134,6 +153,9 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         onClicked(5);
                       },
+
+                      // icon cards is a reusable widget which requires  an icon widget and iconchild
+
                       iconCard: const IconCards(
                         iconWidget: Icons.library_books_rounded,
                         iconChild: "Books",

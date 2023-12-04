@@ -10,6 +10,7 @@ class StartButton extends StatefulWidget {
 class _StartButtonState extends State<StartButton> {
   @override
   Widget build(BuildContext context) {
+    // elevatedbutton is used to navigate or start the quiz to categories page
     return ElevatedButton(
       onPressed: () {
         Navigator.pushNamed(context, 'homepage');

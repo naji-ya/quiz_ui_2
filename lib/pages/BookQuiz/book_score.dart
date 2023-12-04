@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SportsScore extends StatelessWidget {
+class BooksScore extends StatelessWidget {
   // varialble to store the scores
   final int score;
-  const SportsScore({super.key, required this.score});
+  const BooksScore({super.key, required this.score});
 
   @override
   Widget build(BuildContext context) {

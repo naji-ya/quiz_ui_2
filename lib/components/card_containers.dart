@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CardContainer extends StatelessWidget {
   final VoidCallback onTap;
   final Widget iconCard;
-
+// The container required ontap function and icon card widget
   const CardContainer({
     super.key,
     required this.iconCard,
@@ -14,6 +14,8 @@ class CardContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+
+      // the containers for the categories
       child: Container(
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(

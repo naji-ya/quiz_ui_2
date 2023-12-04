@@ -1,8 +1,11 @@
-import 'package:flutter_quiz_2/classes/sports_class.dart';
+import 'package:flutter_quiz_2/pages/SportsQuiz/classes/sports_class.dart';
 
 class SportsQbank {
   int questionNumber = 0;
 
+  //create list of question ,options and its correct answer index
+
+//list of type SportsClass
   List<SportsClass> questions = [
     SportsClass(
       sportsQuestion: " After how many Years FIFA World Cup held?",
@@ -73,14 +76,19 @@ class SportsQbank {
     ),
   ];
 
+// methods require to access list from sports page
+
+// method to get the question from the list
   String getQuestion() {
     return questions[questionNumber].sportsQuestion;
   }
 
+//method to get the options
   List getOption() {
     return questions[questionNumber].options;
   }
 
+//method to check whether the question is last or not
   bool isLastQuestion() {
     if (questionNumber == questions.length - 1) {
       return true;
@@ -89,19 +97,25 @@ class SportsQbank {
     }
   }
 
+// method to get the correct answer index
   int correctAnswer() {
     return questions[questionNumber].sportsCorrectAnswerIndex;
   }
 
+// method to reset  quiz
   void resetQuiz() {
     questionNumber = 0;
   }
+
+//method to go to the previous question
 
   void getPreviousQuestion() {
     if (questionNumber > 0) {
       questionNumber--;
     }
   }
+
+//method to go to the next question
 
   void getNextQuestion() {
     if (questionNumber < questions.length - 1) {
