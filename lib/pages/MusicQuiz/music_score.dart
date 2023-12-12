@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SportsScore extends StatelessWidget {
+class MusicScore extends StatelessWidget {
   // varialble to store the scores
-  final int score;
-  const SportsScore({super.key, required this.score});
+  final int musicScore;
+  const MusicScore({super.key, required this.musicScore});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class SportsScore extends StatelessWidget {
 
                   // to display the score
                   Text(
-                    "$score/10",
+                    "$musicScore/10",
                     style: GoogleFonts.abyssinicaSil(
                         letterSpacing: 3,
                         color: Colors.white,

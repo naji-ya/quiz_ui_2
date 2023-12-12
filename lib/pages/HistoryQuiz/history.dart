@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quiz_2/pages/BookQuiz/book_score.dart';
-import 'package:flutter_quiz_2/pages/BookQuiz/classes/books_class_questions.dart';
+import 'package:flutter_quiz_2/pages/HistoryQuiz/classes/history_question_class.dart';
+import 'package:flutter_quiz_2/pages/HistoryQuiz/history_score.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../components/next_button.dart';
 import '../../components/previous_button.dart';
 
-//create an object for BookQBank
-BooksQBank booksqbank = BooksQBank();
+// object creation for class HistoryQBank
 
-class BooksPage extends StatefulWidget {
-  const BooksPage({super.key});
+HistoryQBank historyqbank = HistoryQBank();
+
+class HistoryPage extends StatefulWidget {
+  const HistoryPage({super.key});
 
   @override
-  State<BooksPage> createState() => _BooksPageState();
+  State<HistoryPage> createState() => _HistoryPageState();
 }
 
-class _BooksPageState extends State<BooksPage> {
-  int? selectedBookOptionIndex;
+class _HistoryPageState extends State<HistoryPage> {
+  int? selectedHistoryOptionIndex;
   int score = 0;
 
   // method to get the score while the correct option is selected
 
-  void setBookAnswer() {
-    if (selectedBookOptionIndex == booksqbank.correctBookAnswer()) {
+  void setHistoryAnswer() {
+    if (selectedHistoryOptionIndex == historyqbank.historyCorrectAnswer()) {
       setState(() {
         score++;
       });
@@ -33,9 +34,9 @@ class _BooksPageState extends State<BooksPage> {
 
   bool showPreviousButton = false;
   void onPreviousButtonPressed() {
-    booksqbank.getPreviousBookQuestion();
+    historyqbank.getPreviousHQuestion();
     setState(() {
-      showPreviousButton = booksqbank.booksQuestionNumber > 0;
+      showPreviousButton = historyqbank.historyQuestionNumber > 0;
     });
   }
 
@@ -44,6 +45,7 @@ class _BooksPageState extends State<BooksPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         actions: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 14),
@@ -51,7 +53,7 @@ class _BooksPageState extends State<BooksPage> {
                 onPressed: () {
                   Alert(
                       context: context,
-                      title: "Alert!",
+                      title: "Do you want to exit ?",
                       style: AlertStyle(
                         alertBorder: Border.all(
                           color: Colors.amber,
@@ -59,27 +61,6 @@ class _BooksPageState extends State<BooksPage> {
                         backgroundColor: Colors.black,
                         titleStyle:
                             const TextStyle(color: Colors.white, fontSize: 22),
-                      ),
-                      content: Column(
-                        children: const [
-                          SizedBox(
-                            height: 7,
-                          ),
-                          Text(
-                            "Do you  want to exit ?              ",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Text(
-                            "Your current score will loose if you exit now",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
                       ),
                       buttons: [
                         DialogButton(
@@ -101,9 +82,7 @@ class _BooksPageState extends State<BooksPage> {
                           child: const Text(
                             "NO",
                             style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ]).show();
@@ -114,13 +93,12 @@ class _BooksPageState extends State<BooksPage> {
                 )),
           )
         ],
-        automaticallyImplyLeading: false,
         title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            "Books",
+            " History",
             style: GoogleFonts.akshar(
-              color: Colors.amber,
+              color: Colors.white,
               fontSize: 30,
               fontWeight: FontWeight.bold,
             ),
@@ -141,7 +119,7 @@ class _BooksPageState extends State<BooksPage> {
                   child: Text(
                     // inside a sizedbox and padding ,text widget is used to show the questions from the class list
 
-                    booksqbank.getBookQuestions(),
+                    historyqbank.getQuestion(),
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 23,
@@ -160,10 +138,10 @@ class _BooksPageState extends State<BooksPage> {
               shrinkWrap: true,
               // number of options is the item count
 
-              itemCount: booksqbank.getBooksOptions().length,
+              itemCount: historyqbank.getOptions().length,
               itemBuilder: (BuildContext context, int index) {
-                bool isSelected = selectedBookOptionIndex == index;
-                bool isCorrect = booksqbank.correctBookAnswer() == index;
+                bool isSelected = selectedHistoryOptionIndex == index;
+                bool isCorrect = historyqbank.historyCorrectAnswer() == index;
 
                 /* if the option selected is the correct answer then the option color is changed to green ,
                  if the option selected is wrong then the  option color is changed to red,and 
@@ -179,9 +157,9 @@ class _BooksPageState extends State<BooksPage> {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
-                      selectedBookOptionIndex = index;
+                      selectedHistoryOptionIndex = index;
 
-                      setBookAnswer();
+                      setHistoryAnswer();
                     });
                   },
                   child: Padding(
@@ -197,10 +175,10 @@ class _BooksPageState extends State<BooksPage> {
                           borderRadius: BorderRadius.circular(10)),
                       margin: const EdgeInsets.all(3.0),
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Text(
                           // to display the options
-                          booksqbank.getBooksOptions()[index],
+                          historyqbank.getOptions()[index],
                           style: const TextStyle(
                               color: Colors.white, fontSize: 18),
                         ),
@@ -213,33 +191,34 @@ class _BooksPageState extends State<BooksPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               // to show the previous button if the question number is greater than 0
-              if (showPreviousButton = booksqbank.booksQuestionNumber > 0)
+              if (showPreviousButton = historyqbank.historyQuestionNumber > 0)
                 PreviousButton(
                   onTap: onPreviousButtonPressed,
                 ),
               NextButton(onTap: () {
                 // if the user is in last question then it should navigate to the score page,other wise go to next question
-                if (booksqbank.isLastBookQuestion() == true) {
+                if (historyqbank.isLastQuestion() == true) {
                   // to reset the quiz from the begining
 
-                  booksqbank.resetQuiz();
+                  historyqbank.resetHistoryQuiz();
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: ((context) => BooksScore(score: score)),
+                      builder: ((context) => HistoryScore(score: score)),
                     ),
                   );
                 } else {
                   //go to next question
+
                   setState(() {
-                    booksqbank.getNextQuestion();
+                    historyqbank.goToNextQuestion();
                   });
                 }
 
                 /* if we select an answer from option of a question ,then the same answer is  still selected 
                 in the next question's option,to overcome that or to avoid that selection set 
                 the selected index as non index value  */
-                selectedBookOptionIndex = -1;
+                selectedHistoryOptionIndex = -1;
               }),
             ],
           ),

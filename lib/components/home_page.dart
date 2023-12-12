@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     } else if (index == 2) {
       Navigator.pushNamed(context, 'music');
     } else if (index == 3) {
-      Navigator.pushNamed(context, 'games');
+      Navigator.pushNamed(context, 'history');
     } else if (index == 4) {
       Navigator.pushNamed(context, 'computer');
     } else if (index == 5) {
@@ -121,8 +121,8 @@ class _HomePageState extends State<HomePage> {
                         // icon cards is a reusable widget which requires  an icon widget and iconchild
 
                         iconCard: const IconCards(
-                          iconWidget: Icons.sports_esports_rounded,
-                          iconChild: "Games",
+                          iconWidget: Icons.history,
+                          iconChild: "History",
                         ),
                       ),
                     ),
@@ -157,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                       // icon cards is a reusable widget which requires  an icon widget and iconchild
 
                       iconCard: const IconCards(
-                        iconWidget: Icons.library_books_rounded,
+                        iconWidget: Icons.library_books,
                         iconChild: "Books",
                       ),
                     ),

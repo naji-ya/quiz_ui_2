@@ -1,6 +1,8 @@
 import 'package:flutter_quiz_2/pages/ComputerQuiz/Classes/computer_class.dart';
 
 class ComputerQBank {
+  int computerQuestionNumber = 0;
+
   //list of questions,options ande correct answer index
 
   List<ComputerClass> cQuestions = [
@@ -113,4 +115,50 @@ class ComputerQBank {
       ],
     ),
   ];
+
+// method for previous button
+  void previousComputerQuestions() {
+    if (computerQuestionNumber > 0) {
+      computerQuestionNumber--;
+    }
+  }
+
+//method to check whether the question is last or not
+  bool isLastCompuetrQuestion() {
+    if (computerQuestionNumber == cQuestions.length - 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+// goto next question
+
+  void goToNextQuestion() {
+    if (computerQuestionNumber < cQuestions.length - 1) {
+      computerQuestionNumber++;
+    }
+  }
+
+  //to access the correct answer index
+
+  int correctComputerAnswer() {
+    return cQuestions[computerQuestionNumber].computerCorrectAnswerIndex;
+  }
+
+  //to reset quiz
+
+  void resetComputerQuiz() {
+    computerQuestionNumber = 0;
+  }
+
+// to access the option from the list
+  List getOptions() {
+    return cQuestions[computerQuestionNumber].cOptions;
+  }
+
+//to access the question from the list to computer.dart page
+  String getQuestion() {
+    return cQuestions[computerQuestionNumber].computerQuestions;
+  }
 }

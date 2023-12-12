@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SportsScore extends StatelessWidget {
+class HistoryScore extends StatelessWidget {
   // varialble to store the scores
   final int score;
-  const SportsScore({super.key, required this.score});
+  const HistoryScore({super.key, required this.score});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class SportsScore extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-
+      
                   // to display the score
                   Text(
                     "$score/10",
@@ -70,7 +70,7 @@ class SportsScore extends StatelessWidget {
                   const SizedBox(
                     height: 100,
                   ),
-
+      
                   // elevatedbutton is used to navigate back to the home page
                   ElevatedButton(
                     onPressed: () {

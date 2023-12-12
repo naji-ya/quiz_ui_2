@@ -3,7 +3,7 @@ import 'package:flutter_quiz_2/components/home_page.dart';
 import 'package:flutter_quiz_2/pages/BookQuiz/books.dart';
 
 import 'package:flutter_quiz_2/pages/ComputerQuiz/computer.dart';
-import 'package:flutter_quiz_2/pages/GamesQuiz/games.dart';
+import 'package:flutter_quiz_2/pages/HistoryQuiz/history.dart';
 import 'package:flutter_quiz_2/pages/MusicQuiz/music.dart';
 import 'package:flutter_quiz_2/pages/quiz_home.dart';
 import 'package:flutter_quiz_2/pages/ScienceQuiz/science.dart';
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
           'sports': (context) => const SportsPage(),
           'science': (context) => const SciencePage(),
           'music': (context) => const MusicPage(),
-          'games': (context) => const GamesPage(),
+          'history': (context) => const HistoryPage(),
           'computer': (context) => const ComputerPage(),
           'books': (context) => const BooksPage(),
           //Route for back to home button

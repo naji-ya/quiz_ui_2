@@ -3,6 +3,7 @@ import 'package:flutter_quiz_2/pages/SportsQuiz/classes/sports_class_questions.d
 import 'package:flutter_quiz_2/components/previous_button.dart';
 import 'package:flutter_quiz_2/components/sports_score.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../components/next_button.dart';
 
@@ -54,11 +55,58 @@ so that at the begining the showPreviousButton has to be set false
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14),
+            child: IconButton(
+                onPressed: () {
+                  Alert(
+                      context: context,
+                      title: "Do you want to exit ?",
+                      style: AlertStyle(
+                        alertBorder: Border.all(
+                          color: Colors.amber,
+                        ),
+                        backgroundColor: Colors.black,
+                        titleStyle:
+                            const TextStyle(color: Colors.white, fontSize: 22),
+                      ),
+                      buttons: [
+                        DialogButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, 'homepage');
+                          },
+                          color: Colors.amber,
+                          child: const Text(
+                            "OK",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        DialogButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          color: Colors.amber,
+                          child: const Text(
+                            "NO",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ]).show();
+                },
+                icon: const Icon(
+                  Icons.close,
+                  size: 30,
+                )),
+          )
+        ],
         automaticallyImplyLeading: false,
         title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Text(
-            "Quiz On Sports",
+            " Sports",
             style: GoogleFonts.akshar(
               color: Colors.amber,
               fontSize: 30,
@@ -158,22 +206,25 @@ so that at the begining the showPreviousButton has to be set false
                   onTap: onPreviousButtonPressed,
                 ),
               NextButton(onTap: () {
-                setState(() {
-                  // if the user is in last question then it should navigate to the score page,other wise go to next question
-                  if (sportsqbank.isLastQuestion() == true) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => SportsScore(score: score)),
-                      ),
-                    );
-// to reset the quiz from the begining
-                    sportsqbank.resetQuiz();
-                  } else {
-                    //go to next question
+                // if the user is in last question then it should navigate to the score page,other wise go to next question
+                if (sportsqbank.isLastQuestion() == true) {
+                  // to reset the quiz from the begining
+
+                  sportsqbank.resetQuiz();
+
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) => SportsScore(score: score)),
+                    ),
+                  );
+                } else {
+                  //go to next question
+                  setState(() {
                     sportsqbank.getNextQuestion();
-                  }
-                });
+                  });
+                }
+
                 /* if we select an answer from option of a question ,then the same answer is  still selected 
                 in the next question's option,to overcome that or to avoid that selection set 
                 the selected index as non index value  */
