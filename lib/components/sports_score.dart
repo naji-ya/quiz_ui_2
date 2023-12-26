@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quiz_2/components/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SportsScore extends StatelessWidget {
@@ -76,6 +77,9 @@ class SportsScore extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, 'quiz_home');
                     },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(buttonColor),
+                    ),
                     child: const Text(
                       "Back To Home ",
                       style: TextStyle(

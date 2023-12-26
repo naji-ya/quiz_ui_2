@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quiz_2/components/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BooksScore extends StatelessWidget {
@@ -57,7 +58,7 @@ class BooksScore extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-      
+
                   // to display the score
                   Text(
                     "$score/10",
@@ -70,12 +71,15 @@ class BooksScore extends StatelessWidget {
                   const SizedBox(
                     height: 100,
                   ),
-      
+
                   // elevatedbutton is used to navigate back to the home page
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, 'quiz_home');
                     },
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(buttonColor)),
                     child: const Text(
                       "Back To Home ",
                       style: TextStyle(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quiz_2/components/styles.dart';
 
 class StartButton extends StatefulWidget {
   const StartButton({super.key});
@@ -15,10 +16,10 @@ class _StartButtonState extends State<StartButton> {
       onPressed: () {
         Navigator.pushNamed(context, 'homepage');
       },
-      child: const Text(
+      child: Text(
         "Play Quiz",
         style: TextStyle(
-            fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold),
+            fontSize: 20, color: textOneColor, fontWeight: FontWeight.bold),
       ),
     );
   }

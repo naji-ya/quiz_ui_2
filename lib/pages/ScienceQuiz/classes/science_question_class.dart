@@ -1,6 +1,7 @@
 import 'package:flutter_quiz_2/pages/ScienceQuiz/classes/science_class.dart';
 
 class ScienceQBank {
+  int scienceQuestionNumber = 0;
 // create questions ,options and correct answer index in a list
 
   List<ScienceClass> seQuestions = [
@@ -123,5 +124,53 @@ class ScienceQBank {
 
   //methods
 
-  
+  // to get question from the list
+
+  String getScienceQuestion() {
+    return seQuestions[scienceQuestionNumber].scienceQuestions;
+  }
+
+  // to get options from the list
+
+  List getScienceOptions() {
+    return seQuestions[scienceQuestionNumber].scienceOptions;
+  }
+
+  // to reset the quiz
+
+  void resetScienceQuiz() {
+    scienceQuestionNumber = 0;
+  }
+
+  // to check is it is last question
+
+  bool isLastScienceQuestion() {
+    if (scienceQuestionNumber == seQuestions.length - 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // to go to next question
+
+  void goToNextScienceQuestion() {
+    if (scienceQuestionNumber < seQuestions.length - 1) {
+      scienceQuestionNumber++;
+    }
+  }
+
+  //to go back to previous Question
+
+  void goToPreviousScienceQuestion() {
+    if (scienceQuestionNumber > 0) {
+      scienceQuestionNumber--;
+    }
+  }
+
+  // to get correct Answer index
+
+  int getCorrectScienceAnswerIndex() {
+    return seQuestions[scienceQuestionNumber].scienceCorrectAnswerIndex;
+  }
 }

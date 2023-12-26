@@ -25,7 +25,7 @@ class PreviousButton extends StatelessWidget {
               child: const Center(
                   child: Text(
                 "Previous",
-                style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               )),
             ),
           ),

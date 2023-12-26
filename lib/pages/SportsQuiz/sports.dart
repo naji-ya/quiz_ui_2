@@ -27,7 +27,7 @@ class _SportsPageState extends State<SportsPage> {
 // method to get the score while the correct option is selected
 
   void setAnswer() {
-    if (selectedOptionIndex == sportsqbank.correctAnswer()) {
+    if (selectedOptionIndex == sportsqbank.correctAnswerIndex()) {
       setState(() {
         score++;
       });
@@ -151,7 +151,7 @@ so that at the begining the showPreviousButton has to be set false
               itemCount: sportsqbank.getOption().length,
               itemBuilder: (BuildContext context, int index) {
                 bool isSelected = selectedOptionIndex == index;
-                bool isCorrect = sportsqbank.correctAnswer() == index;
+                bool isCorrect = sportsqbank.correctAnswerIndex() == index;
 
                 /* if the option selected is the correct answer then the option color is changed to green ,
                  if the option selected is wrong then the  option color is changed to red,and 

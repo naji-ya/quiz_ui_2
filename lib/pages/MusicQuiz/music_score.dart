@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../components/styles.dart';
+
 class MusicScore extends StatelessWidget {
   // varialble to store the scores
   final int musicScore;
@@ -76,6 +78,9 @@ class MusicScore extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, 'quiz_home');
                     },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(buttonColor),
+                    ),
                     child: const Text(
                       "Back To Home ",
                       style: TextStyle(

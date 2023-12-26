@@ -3,10 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../components/styles.dart';
 
-class HistoryScore extends StatelessWidget {
+class ScienceScore extends StatelessWidget {
   // varialble to store the scores
   final int score;
-  const HistoryScore({super.key, required this.score});
+  const ScienceScore({super.key, required this.score});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class HistoryScore extends StatelessWidget {
                     "$score/10",
                     style: GoogleFonts.abyssinicaSil(
                         letterSpacing: 3,
-                        color: textOneColor,
+                        color: Colors.white,
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
                   ),
@@ -81,10 +81,10 @@ class HistoryScore extends StatelessWidget {
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(buttonColor),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Back To Home ",
                       style: TextStyle(
-                          color: textColor,
+                          color: Colors.black,
                           fontSize: 23,
                           fontWeight: FontWeight.bold),
                     ),

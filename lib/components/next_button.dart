@@ -28,7 +28,7 @@ class NextButton extends StatelessWidget {
                 // if the user  is at the last question then the nextbutton should be changed to done otherwise it is next
                 sportsqbank.isLastQuestion() ? 'Done' : 'Next',
                 style:
-                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               )),
             ),
           ),

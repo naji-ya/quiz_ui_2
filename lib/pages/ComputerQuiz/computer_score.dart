@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../components/styles.dart';
+
 class ComputerScore extends StatelessWidget {
   // varialble to store the scores
   final int score;
@@ -57,7 +59,7 @@ class ComputerScore extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-      
+
                   // to display the score
                   Text(
                     "$score/10",
@@ -70,12 +72,15 @@ class ComputerScore extends StatelessWidget {
                   const SizedBox(
                     height: 100,
                   ),
-      
+
                   // elevatedbutton is used to navigate back to the home page
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, 'quiz_home');
                     },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(buttonColor),
+                    ),
                     child: const Text(
                       "Back To Home ",
                       style: TextStyle(

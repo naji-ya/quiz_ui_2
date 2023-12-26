@@ -98,7 +98,7 @@ class SportsQbank {
   }
 
 // method to get the correct answer index
-  int correctAnswer() {
+  int correctAnswerIndex() {
     return questions[questionNumber].sportsCorrectAnswerIndex;
   }
 

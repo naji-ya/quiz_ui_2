@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quiz_2/components/card_containers.dart';
 import 'package:flutter_quiz_2/components/card_icons.dart';
+import 'package:flutter_quiz_2/components/styles.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
@@ -47,7 +48,7 @@ class _HomePageState extends State<HomePage> {
 
             // used google fonts from the package
             style: GoogleFonts.akshar(
-              color: Colors.white,
+              color: buttonColor,
               fontSize: 30,
               fontWeight: FontWeight.bold,
             ),
