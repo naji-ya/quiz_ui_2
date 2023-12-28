@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quiz_2/components/divider.dart';
 import 'package:flutter_quiz_2/components/square_image.dart';
 import 'package:flutter_quiz_2/components/styles.dart';
 
@@ -10,11 +12,90 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+
   bool isPasswordVisible = false;
 
-  //text controllers
-  final _usernameController = TextEditingController();
+  //text editing  controllers
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  void userSignIn() async {
+// show  loading circle
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+// try sign in
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+      // pop the loading circle
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // pop the loading circle
+      Navigator.pop(context);
+
+      // wrong email
+      if (e.code == 'user-not-found') {
+        showErrorEmailMessage();
+      }
+
+      //wrong password
+      if (e.code == 'wrong-password') {
+        showErrorPasswordMessage();
+      }
+    }
+  }
+
+  // wrong email popup
+
+  void showErrorEmailMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        Future.delayed(const Duration(seconds: 1), () {
+          Navigator.of(context).pop(true);
+        });
+
+        return AlertDialog(
+          backgroundColor: const Color.fromARGB(255, 240, 218, 151),
+          title: Text(
+            "Email is incorrect!",
+            style: TextStyle(color: textOneColor),
+          ),
+        );
+      },
+    );
+  }
+
+  // wrong password popup
+
+  void showErrorPasswordMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          title: Text("Password is incorrect!"),
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,14 +148,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                // username
+                // email
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: TextField(
-                    controller: _usernameController,
+                    focusNode: _emailFocusNode,
+                    controller: _emailController,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(
-                          vertical: 25.0, horizontal: 10.0),
+                          vertical: 25.0, horizontal: 20.0),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -84,10 +166,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide(color: buttonColor),
                       ),
-                      hintText: "Username",
+                      hintText: "Email",
                       hintStyle: const TextStyle(
                           color: Colors.grey, letterSpacing: 0.5),
                     ),
+                    onChanged: (_) {
+                      _emailFocusNode.requestFocus();
+                    },
                     style: TextStyle(color: textColor, fontSize: 15),
                   ),
                 ),
@@ -100,10 +185,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: TextField(
                     controller: _passwordController,
+                    focusNode: _passwordFocusNode,
                     obscureText: !isPasswordVisible,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(
-                          vertical: 25.0, horizontal: 10),
+                          vertical: 25.0, horizontal: 20),
                       suffixIcon: IconButton(
                         onPressed: () {
                           setState(() {
@@ -130,6 +216,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       hintStyle: const TextStyle(
                           color: Colors.grey, letterSpacing: 0.5),
                     ),
+                    onChanged: (_) {
+                      _passwordFocusNode.requestFocus();
+                    },
                     style: TextStyle(color: textColor, fontSize: 15),
                   ),
                 ),
@@ -149,10 +238,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 15,
                 ),
+
+                // SIGN IN BUTTON
+
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'quiz_home');
-                  },
+                  onPressed: userSignIn,
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(buttonColor),
                   ),
@@ -166,33 +256,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-
-                Row(
-                  children: const [
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      " Or continue with ",
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
+// reusable divider page
+                const DividerPage(),
 
                 const SizedBox(
                   height: 25,

@@ -10,6 +10,7 @@ class SquareImage extends StatelessWidget {
       height: 60,
       width: 70,
       decoration: BoxDecoration(
+        color: Colors.white10,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
           color: const Color.fromARGB(255, 249, 216, 108),
@@ -17,7 +18,6 @@ class SquareImage extends StatelessWidget {
       ),
       child: Image.asset(
         imageSource,
-        
       ),
     );
   }

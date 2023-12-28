@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quiz_2/components/divider.dart';
+import 'package:flutter_quiz_2/components/square_image.dart';
 import 'package:flutter_quiz_2/components/styles.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -52,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  //USERNAME
+                  //Email
 
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -60,7 +62,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: _userNameController,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
-                            vertical: 25, horizontal: 10),
+                            vertical: 25, horizontal: 20.0),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -70,7 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         filled: true,
                         fillColor: Colors.white10,
-                        hintText: "Username",
+                        hintText: "Email",
                         hintStyle: const TextStyle(
                             color: Colors.grey, letterSpacing: 0.5),
                       ),
@@ -93,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       obscureText: !isPasswordVisible,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
-                            vertical: 25, horizontal: 10),
+                            vertical: 25, horizontal: 20.0),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -137,7 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       obscureText: !isConfirmPasswordVisible,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
-                            vertical: 25, horizontal: 10),
+                            vertical: 25, horizontal: 20.0),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -186,80 +188,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   //or continue with
                   const SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
-
-                  Row(
-                    children: const [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        " Or continue with ",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
+// reusable divider page
+                  const DividerPage(),
 
                   const SizedBox(
                     height: 25,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Container(
-                        height: 60,
-                        width: 70,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                                color:
-                                    const Color.fromARGB(255, 249, 216, 108))),
-                        child: Image.asset("assets/google.png"),
-                      ),
-                      const SizedBox(
+                    children: const [
+                      // google button
+                      SquareImage(imageSource: "assets/google.png"),
+                      SizedBox(
                         width: 20,
                       ),
-                      Container(
-                        height: 60,
-                        width: 70,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: const Color.fromARGB(255, 249, 216, 108),
-                          ),
-                        ),
-                        child: Image.asset("assets/apple.png"),
-                      ),
-                      const SizedBox(
+
+                      // apple button
+
+                      SquareImage(imageSource: "assets/apple.png"),
+                      SizedBox(
                         width: 20,
                       ),
-                      Container(
-                        height: 60,
-                        width: 70,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: const Color.fromARGB(255, 249, 216, 108),
-                          ),
-                        ),
-                        child: Image.asset("assets/facebook-48.png"),
-                      ),
+
+                      // facebook button
+
+                      SquareImage(imageSource: "assets/facebook-48.png"),
                     ],
                   ),
                   const SizedBox(
@@ -269,10 +224,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Already have an account ?",
                         style: TextStyle(
-                          color: textColor,
+                          color: Colors.grey,
                         ),
                       ),
                       const SizedBox(
@@ -287,7 +242,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: TextStyle(
                               color: buttonColor, fontWeight: FontWeight.bold),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_quiz_2/components/auth_page.dart';
 import 'package:flutter_quiz_2/components/home_page.dart';
 import 'package:flutter_quiz_2/components/styles.dart';
 import 'package:flutter_quiz_2/pages/BookQuiz/books.dart';
@@ -11,8 +12,12 @@ import 'package:flutter_quiz_2/pages/ScienceQuiz/science.dart';
 import 'package:flutter_quiz_2/pages/SportsQuiz/sports.dart';
 import 'package:flutter_quiz_2/screens/log_in_screen.dart';
 import 'package:flutter_quiz_2/screens/register_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -32,11 +37,11 @@ class MyApp extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
-              fixedSize: const Size(320, 60),
+              fixedSize: const Size(350, 60),
             ),
           ),
         ),
-        home: const LoginScreen(),
+        home: const AuthPage(),
         routes: {
           'homepage': (context) => const HomePage(),
 
