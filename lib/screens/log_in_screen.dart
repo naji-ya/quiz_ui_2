@@ -1,33 +1,51 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_quiz_2/components/divider.dart';
-import 'package:flutter_quiz_2/components/square_image.dart';
-import 'package:flutter_quiz_2/components/styles.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+import '../components/divider.dart';
+import '../components/square_image.dart';
+import '../components/styles.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  Function()? onTap;
+  LoginScreen({super.key, required this.onTap});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final FocusNode _emailFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode = FocusNode();
+const List<String> scopes = <String>[
+  'email',
+];
 
+class _LoginScreenState extends State<LoginScreen> {
   bool isPasswordVisible = false;
 
   //text editing  controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    // Optional clientId
+    clientId:
+        '621908092432-cj0sbrjf99b9besl7vhfd9otblt9vp6k.apps.googleusercontent.com',
+    scopes: scopes,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void userSignIn() async {
 // show  loading circle
     showDialog(
       context: context,
       builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
+        return Center(
+          child: CircularProgressIndicator(
+            color: buttonColor,
+          ),
         );
       },
     );
@@ -41,22 +59,15 @@ class _LoginScreenState extends State<LoginScreen> {
     } on FirebaseAuthException catch (e) {
       // pop the loading circle
       Navigator.pop(context);
-
-      // wrong email
-      if (e.code == 'user-not-found') {
-        showErrorEmailMessage();
-      }
-
-      //wrong password
-      if (e.code == 'wrong-password') {
-        showErrorPasswordMessage();
-      }
+// show the corresponding error message
+      showErrorMessage(e.code);
     }
   }
 
-  // wrong email popup
+//used showerrormessage function to reduce the complexity of the program and understand easily
+  //  error popup message
 
-  void showErrorEmailMessage() {
+  void showErrorMessage(String message) {
     showDialog(
       context: context,
       builder: (context) {
@@ -67,31 +78,29 @@ class _LoginScreenState extends State<LoginScreen> {
         return AlertDialog(
           backgroundColor: const Color.fromARGB(255, 240, 218, 151),
           title: Text(
-            "Email is incorrect!",
+            message,
             style: TextStyle(color: textOneColor),
           ),
         );
       },
     );
   }
+//combines it with the above code  so it will be more accurate
+  // // wrong password popup
 
-  // wrong password popup
-
-  void showErrorPasswordMessage() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const AlertDialog(
-          title: Text("Password is incorrect!"),
-        );
-      },
-    );
-  }
+  // void showErrorPasswordMessage() {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return const AlertDialog(
+  //         title: Text("Password is incorrect!"),
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   void dispose() {
-    _emailFocusNode.dispose();
-    _passwordFocusNode.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -108,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 170,
+                  height: 130,
                   child: Image.asset(
                     "assets/login.png",
                     fit: BoxFit.cover,
@@ -127,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     "LOGIN",
                     style: TextStyle(
                         color: buttonColor,
-                        fontSize: 20,
+                        fontSize: 19,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -141,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     "Please login to continue",
                     style: TextStyle(
                       color: Color.fromARGB(255, 199, 190, 190),
-                      fontSize: 17,
+                      fontSize: 16,
                     ),
                   ),
                 ),
@@ -152,28 +161,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: TextField(
-                    focusNode: _emailFocusNode,
                     controller: _emailController,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 25.0, horizontal: 20.0),
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       filled: true,
                       fillColor: Colors.white10,
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(color: buttonColor),
                       ),
                       hintText: "Email",
                       hintStyle: const TextStyle(
                           color: Colors.grey, letterSpacing: 0.5),
                     ),
-                    onChanged: (_) {
-                      _emailFocusNode.requestFocus();
-                    },
-                    style: TextStyle(color: textColor, fontSize: 15),
+                    style: TextStyle(color: textColor, fontSize: 14),
                   ),
                 ),
                 const SizedBox(
@@ -185,7 +190,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: TextField(
                     controller: _passwordController,
-                    focusNode: _passwordFocusNode,
                     obscureText: !isPasswordVisible,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(
@@ -204,22 +208,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       filled: true,
                       fillColor: Colors.white10,
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: buttonColor),
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       hintText: "Password",
                       hintStyle: const TextStyle(
                           color: Colors.grey, letterSpacing: 0.5),
                     ),
-                    onChanged: (_) {
-                      _passwordFocusNode.requestFocus();
-                    },
-                    style: TextStyle(color: textColor, fontSize: 15),
+                    style: TextStyle(color: textColor, fontSize: 14),
                   ),
                 ),
                 // forgot password
@@ -228,11 +229,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
-                    Text(
-                      "Forgot Password ?",
-                      style: TextStyle(color: Colors.grey),
-                    )
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, 'forgot_password');
+                      },
+                      child: const Text(
+                        "Forgot Password ?",
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -264,21 +273,32 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: const [
+                  children: [
                     // google button
-                    SquareImage(imageSource: "assets/google.png"),
-                    SizedBox(
+                    GestureDetector(
+                      onTap: () async {
+                        try {
+                          await _googleSignIn.signIn();
+                        } catch (error) {
+                          print(error);
+                        }
+                      },
+                      child: const SquareImage(
+                        imageSource: "assets/google.png",
+                      ),
+                    ),
+                    const SizedBox(
                       width: 20,
                     ),
 
                     // apple button
-                    SquareImage(imageSource: "assets/apple.png"),
-                    SizedBox(
+                    const SquareImage(imageSource: "assets/apple.png"),
+                    const SizedBox(
                       width: 20,
                     ),
 
                     // facebook button
-                    SquareImage(imageSource: "assets/facebook-48.png"),
+                    const SquareImage(imageSource: "assets/facebook-48.png"),
                   ],
                 ),
                 const SizedBox(
@@ -295,9 +315,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 12,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, 'register_screen');
-                      },
+                      onTap: widget.onTap,
                       child: Text(
                         "Register now",
                         style: TextStyle(

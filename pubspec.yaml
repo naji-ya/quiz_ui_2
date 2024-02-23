@@ -40,17 +40,22 @@ dependencies:
   rflutter_alert: ^2.0.7
   firebase_core: ^2.24.2
   firebase_auth: ^4.15.3
+  flutter_native_splash: ^2.2.18
+  google_sign_in: ^6.1.4
+  
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -91,3 +96,11 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+  
+flutter_native_splash:
+  android: true  
+  ios : false
+  web : false
+  color : "#FFFFFF" 
+  image : "assets/icon/brain.png"

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_quiz_2/components/auth_page.dart';
 import 'package:flutter_quiz_2/components/home_page.dart';
+import 'package:flutter_quiz_2/components/login_or_register_page.dart';
 import 'package:flutter_quiz_2/components/styles.dart';
 import 'package:flutter_quiz_2/pages/BookQuiz/books.dart';
 
@@ -10,14 +12,17 @@ import 'package:flutter_quiz_2/pages/MusicQuiz/music.dart';
 import 'package:flutter_quiz_2/pages/quiz_home.dart';
 import 'package:flutter_quiz_2/pages/ScienceQuiz/science.dart';
 import 'package:flutter_quiz_2/pages/SportsQuiz/sports.dart';
-import 'package:flutter_quiz_2/screens/log_in_screen.dart';
-import 'package:flutter_quiz_2/screens/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_quiz_2/screens/forgot_password.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await Future.delayed(const Duration(seconds: 2));
+  FlutterNativeSplash.remove();
   runApp(const MyApp());
 }
 
@@ -55,8 +60,13 @@ class MyApp extends StatelessWidget {
           //Route for back to home button
 
           'quiz_home': (context) => const QuizHome(),
-          'log_in_screen': (context) => const LoginScreen(),
-          'register_screen': (context) => const RegisterScreen(),
+          'login_or_register_page': (context) => const LoginOrRegisterPage(),
+          // ROUTE TO RESET PASSWORD
+          'forgot_password': (context) => const PasswordReset(),
+
+          //splash screen
+          'auth_page': (context) => const AuthPage(),
         });
   }
 }
+

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quiz_2/pages/quiz_home.dart';
 import 'package:flutter_quiz_2/screens/log_in_screen.dart';
 
+import 'login_or_register_page.dart';
+
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
 
@@ -20,7 +22,7 @@ class AuthPage extends StatelessWidget {
 
           // user is not logged in
           else {
-            return const LoginScreen();
+            return const LoginOrRegisterPage();
           }
         },
       ),

@@ -1,10 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quiz_2/components/divider.dart';
 import 'package:flutter_quiz_2/components/square_image.dart';
 import 'package:flutter_quiz_2/components/styles.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+  Function()? onTap;
+  RegisterScreen({super.key, required this.onTap});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -15,9 +17,69 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isConfirmPasswordVisible = false;
 //text controllers
 
-  final _userNameController = TextEditingController();
-  final _passWordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passWordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  void userSignUp() async {
+// show  loading circle
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: CircularProgressIndicator(
+            color: buttonColor,
+          ),
+        );
+      },
+    );
+
+// try sign in
+    try {
+      // the password is equal to confirm passwored
+      if (passWordController.text == confirmPasswordController.text) {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passWordController.text,
+        );
+      } else {
+        // pop the loading circle
+        Navigator.pop(context);
+        // show error message
+        showErrorMessage("Password dont match!");
+      }
+      // pop the loading circle
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      // pop the loading circle
+      Navigator.pop(context);
+      // show the corresponding error message
+      showErrorMessage(e.code);
+    }
+  }
+
+//used showerrormessage function to reduce the complexity of the program and understand easily
+  //  error popup message
+
+  void showErrorMessage(String message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        Future.delayed(const Duration(seconds: 1), () {
+          Navigator.of(context).pop(true);
+        });
+
+        return AlertDialog(
+          backgroundColor: const Color.fromARGB(255, 240, 218, 151),
+          title: Text(
+            message,
+            style: TextStyle(color: textOneColor),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: TextField(
-                      controller: _userNameController,
+                      controller: emailController,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 25, horizontal: 20.0),
@@ -91,7 +153,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: TextField(
-                      controller: _passWordController,
+                      controller: passWordController,
                       obscureText: !isPasswordVisible,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
@@ -135,7 +197,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: TextField(
-                      controller: _confirmPasswordController,
+                      controller: confirmPasswordController,
                       obscureText: !isConfirmPasswordVisible,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(
@@ -175,9 +237,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
 // sign up button
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'log_in_screen');
-                    },
+                    onPressed: userSignUp,
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(buttonColor),
                     ),
@@ -234,9 +294,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         width: 9,
                       ),
                       GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, 'log_in_screen');
-                        },
+                        onTap: widget.onTap,
                         child: Text(
                           "Log in",
                           style: TextStyle(

@@ -69,7 +69,7 @@ class _QuizHomeState extends State<QuizHome> {
                     SizedBox(
                       height: 250,
                       child: Image.asset(
-                        "assets/quizBook.png",
+                        "assets/stackofbooks.png",
                         fit: BoxFit.cover,
                       ),
                     ),
